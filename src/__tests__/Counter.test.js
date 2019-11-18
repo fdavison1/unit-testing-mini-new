@@ -1,9 +1,16 @@
+import React from 'react'
+import {render, fireEvent} from '@testing-library/react'
+import Counter from '../components/Counter'
 
+it('renders out starting test', ()=> {
+    const {container} = render(<Counter />)
+    expect(container.textContent).toContain(`You've clicked 0 times!`)
+})
 
-//PLACEHOLDER
-import { add } from '../utils/functions'
-
-//add function
-test ('add integers', () => {
-    expect(add(1, 2)).toBe(3)
+it('clicking increments state count', () => {
+    const {getByTestId, container} = render(<Counter />)
+    const button = getByTestId('counter-button')
+    expect(container.textContent).toContain(`You've clicked 0 times!`)
+    fireEvent.click(button)
+    expect(container.textContent).toContain(`You've clicked 1 times!`)
 })
